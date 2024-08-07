@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% block content %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<body>
+    <div class="d-flex flex-column align-items-center justify-content-center">
+        <h1>Sales Dashboard</h1>
+        
+        <div class="d-flex flex-row align-items-center mb-3">
+            <form id="upload-form" method="post" action="{{ url_for('upload_sales_csv') }}" enctype="multipart/form-data" style="display: none;">
+                <input type="file" name="file" id="file-input" accept=".csv" required>
+            </form>
+            <button type="button" class="btn btn-success mr-2" onclick="document.getElementById('file-input').click();">Upload CSV &#11127;</button>
+            <form method="get" action="{{ url_for('sales_dashboard') }}" class="d-flex flex-row" style="gap: 1rem;">
+                <button class="btn btn-outline-info pr-2" type="submit" name="time-range" value="1w">1 Week</button>
+                <button class="btn btn-outline-info pr-2" type="submit" name="time-range" value="1m">1 Month</button>
+                <button class="btn btn-outline-info pr-2" type="submit" name="time-range" value="6m">6 Months</button>
+                <button class="btn btn-outline-info pr-2" type="submit" name="time-range" value="1y">1 Year</button>
+            </form>
+        </div>
+
+        <canvas id="Sales" width="1500" height="740"></canvas>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var ctx = document.getElementById('Sales').getContext('2d');
+                var Sales = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: {{ dates|tojson }},
+                        datasets: [{
+                            label: 'Quantity Over Date',
+                            data: {{ quantities|tojson }},
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
+                        }]
+                    },
+                });
+            });
+        </script>
+    </div>
+</body>
+{% endblock %}

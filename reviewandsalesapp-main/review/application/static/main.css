@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+section{
+    background-image: url(images/vecteezy_stock-market-bar-graph-candlestick-chart-finance-trade_26267859-1.jpg);
+    width: 100%;
+    height: 60vh;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    text-align:  center;
+    justify-content: center;
+}
+
+section h1{
+    font-size: 5rem;
+    text-shadow: 2px 3px 2px black;
+    color: rgb(30, 192, 87);
+}
+
+section a{
+    font-size: 3rem;
+}
+
+footer{
+    clear: both;
+    height: 30vh;
+
+}
+footer div h2{
+    color: white;
+    margin-top: 2rem;
+    text-shadow: 3px 2px 1px black;
+}
+
+footer div p{
+    color: white;
+    font-size: 1.3rem;
+    text-shadow: 1px 1px 1px black;
+}

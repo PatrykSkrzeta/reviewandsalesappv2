@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% block content %}
+    
+    <div class="col-sm-10 ml-auto mr-auto ">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <form id="upload-form" method="post" action="{{ url_for('upload_sales_csv') }}" enctype="multipart/form-data" style="display: none;">
+                <input type="file" name="file" id="file-input" accept=".csv" required>
+            </form>
+            <button type="button" class="btn btn-success" onclick="document.getElementById('file-input').click();">Upload CSV &#11127;</button>
+            <form class="form-inline" method="get" action="{{ url_for('sales') }}">
+                <input class="form-control mr-sm-2" type="text" name="product" placeholder="Product Name" aria-label="Product">
+                <input class="form-control mr-sm-2" type="text" name="category" placeholder="Category" aria-label="Category">
+                <input class="form-control mr-sm-2" type="date" name="date" placeholder="Date" aria-label="Date">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+        
+        <h2>Sales History</h2>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Revenue</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                {% for d in data %}
+                    <tr>
+                        <td>{{ d.date }}</td>
+                        <td>{{ d.product }}</td>
+                        <td>{{ d.category }}</td>
+                        <td>{{ d.price }}$</td>
+                        <td>{{ d.quantity }}</td>
+                        <td>{{ d.revenue }}$</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('file-input').addEventListener('change', function() {
+            document.getElementById('upload-form').submit();
+        });
+    </script>
+{% endblock %}

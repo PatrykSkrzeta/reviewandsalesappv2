@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block content %}
+    
+    <div class="col-sm-10 ml-auto mr-auto ">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <form id="upload-form" method="post" action="{{ url_for('upload_review_csv') }}" enctype="multipart/form-data" style="display: none;">
+                <input type="file" name="file" id="file-input" accept=".csv" required>
+            </form>
+            <button type="button" class="btn btn-success" onclick="document.getElementById('file-input').click();">Upload CSV &#11127;</button>
+            <form class="form-inline" method="get" action="{{ url_for('review') }}">
+                <input class="form-control mr-sm-2" type="text" name="name" placeholder="Search by Name" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <select class="form-control ml-2" name="sort_by">
+                    <option value="">Sort By</option>
+                    <option value="rating_asc">Rating: Low to High</option>
+                    <option value="rating_desc">Rating: High to Low</option>
+                </select>
+            </form>
+        </div>
+        
+        <h2>Reviews History</h2>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quality</th>
+                    <th scope="col">Shipping Time</th>
+                    <th scope="col">Shipping Quality</th>
+                    <th scope="col">Contact with Seller</th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                {% for d in data %}
+                    <tr>
+                        <td>{{ d.name }}</td>
+                        <td>{{ d.product_quality | safe }}</td>
+                        <td>{{ d.shipping_time | safe }}</td>
+                        <td>{{ d.shipping_quality | safe }}</td>
+                        <td>{{ d.contact_quality | safe }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('file-input').addEventListener('change', function() {
+            document.getElementById('upload-form').submit();
+        });
+    </script>
+{% endblock %}

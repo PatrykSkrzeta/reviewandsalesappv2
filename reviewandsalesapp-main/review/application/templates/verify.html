@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    {% if title %}
+        <title>ExpenseApp - {{ title }}</title>
+    {% else %}
+        <title>ExpenseApp</title>
+    {% endif %}
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 p-0">
+                <header class="mb-4">
+                    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+                        <a class="navbar-brand" style="font-size: 2rem;" href="{{ url_for('review') }}">Saleboard</a>
+                        <a class="navbar-brand" href="{{ url_for('review') }}">Home</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                    </nav>
+                </header>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-10"></div>
+                {% with messages = get_flashed_messages(with_categories = True) %}
+                    {% if messages %}  
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+            </div>
+        </div>
+    </div>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        main {
+            background-image: url('../static/images/vecteezy_stock-market-bar-graph-candlestick-chart-finance-trade_26267859-1.jpg');
+            width: 100vw;
+            height: 100vh;
+            background-position: center;
+            background-size: cover;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .theme {
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(255, 255, 255, 0.675);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 7px 9px 12px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+        .text {
+            text-align: center;
+        }
+    </style>
+    <main>
+        <div class="theme">
+            <div class="box">
+                <form class="" method="POST" action="{{ url_for('verify') }}">
+                    {{ form.hidden_tag() }}
+                    <h2 class="text">Check your mail!</h2>
+                    <p class="text">We sent you a 6-digit code</p>
+                    <fieldset style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <div class="logincontainer">
+                            {{ form.code(id="code", class="form-control logininput px-5 py-4 my-4", placeholder="******") }}
+                        </div>
+                        {{ form.submit(class="btn btn-primary", style="padding: 1rem; width: 10rem; font-size: 2rem;") }}
+                        <a style="font-size: 1.7rem;" class="my-4" href="{{ url_for('login') }}">Back to Login</a>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
+</html>
