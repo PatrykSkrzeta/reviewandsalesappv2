@@ -21,14 +21,12 @@ login_manager.login_view = 'login'
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# Ensure the upload directory exists
 UPLOAD_FOLDER = 'uploads'
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Allowed extensions for file uploads
 ALLOWED_EXTENSIONS = {'csv'}
 
 def allowed_file(filename):
